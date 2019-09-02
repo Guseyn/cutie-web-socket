@@ -1,0 +1,42 @@
+language: node_js
+node_js:
+- lts/*
+install: |-
+  npm ci
+  npm install -g codecov
+script: |-
+  npm run build || travis_terminate 1
+  ./node_modules/.bin/nyc report --reporter=lcov
+  codecov
+  log=$(git log $TRAVIS_COMMIT_RANGE --oneline)
+  echo $'**Change log:**<br/>'${log//$'\n'/<br/>}
+branches:
+  only:
+    - master
+before_deploy: |-
+  log=$(git log $TRAVIS_COMMIT_RANGE --oneline)
+  export TAG=$'v'$TRAVIS_COMMIT_MESSAGE
+  export BODY=$'**Change log:**<br/>'${log//$'\n'/<br/>}
+deploy:
+  - provider: releases
+    skip_cleanup: true
+    api_key:
+      secure: nB37SoPf4aPgrzXd7jmPMzwxw0eE8+HNLdjpFC4Pjm5JrZx5XYRi8wTmLKvWL3XMFLWgZYMg4z1e3LS4KiMhNgs6/UH7igmHSV6GtVQYmrmOyDiNWr+eIyXpXXbKEUydrPEC1ICo1cTanr1xHSNuNsLMd+JxE0fO3FomCgz5tok5XRakMpVty8RXz28VTyc5wrU8JXXg9R2fMNQRnXcDfIGXT8lvHFtUssFxe8dHhjuiufTCHayHhjV3amVEd+PTDn1chRqIu79FeAAZFasAGSNt2IXe0yF5rcJrjr13/W/seIjZv+zfkYvfGRM3C52c9tzy7VjWmxdesRMOYlAazFN6qpGbTEe3XpnqUednsAxQN3vGKNWqVG9bNUSsRy2loas9WwIO2hnzKJEolvSWf3N0UsgRhD6sGC0Z46Y5ByvYCPKaixjjzw9dMYWq3AKhIvEwaIFFgHOsOmMODs3rt1FfsGTc9/3STMdb7lWJQVTRxiaXA/uJV8y4BT11dkWzAy3EuZyIQVcoxZ8fc2dxwMy0g6adV9YuptWm+9iTGqNtub4Aq+CD9dTQkBd54n2eh669rJ19KXfLbgYxQ6uqtLNOPzRVsDlcgYb/mpehra/sl8dIQxR+y+9qeMxmQFKqtk/tGblbTKFaDP5XDz6rVexiOXHcYn1waxM93lujTZ0=
+    file: README.md
+    name: Release $TRAVIS_COMMIT_MESSAGE
+    tag_name: $TAG
+    body: $BODY
+    on:
+      repo: Guseyn/cutie-web-socket
+      branch:
+        - master
+      condition: $TRAVIS_COMMIT_MESSAGE =~ ^([0-9]{1,3}).([0-9]{1,3}).([0-9]{1,3})$
+  - provider: npm
+    email: guseynism@gmail.com
+    api_key:
+      secure: N0errUfF8TilGaIUKyYuZMQ4mlOLNwdgu+GWfuHUn2M7IJOK53FC/G0YWeFx4zF/gARMJwfxP3v5miYqNQ1e3tibTTxsvyQRhm6SoPXQUEUbVyABUMxXgIn89hoezlnWmmeYUl6/iSw0am4gdBPkIPJOMOkofxP1pwKNpIjh0j+NY4SRDLVjFVLfg6WrKdLHQ6DEbNJR1PAfiYz9WYq0SflA2iEvXL9qHzVn+KzffA0wYzSZ6FF70LbshwMMe/tPwo++ob6ywcVjp7/ZZjVzt63qEToZAfz4N5eegjxZyTY0mhoHj43Ygs/LUMqffVkHJPcve5Rd3zkuAe3Ta7N20NpQQK2Z3rrDFPK/0aq3wm1anbdQJx8CYRU5jqKm1V9Fnux+j0YhxyB3xEaAadD5G082Pyopis53nv3+wNQvTjfYGxPLqdgosSvaoXwFJ6WPafMuuUt/ZK7JA2i/0L9Dp2PT+sAZ7Ujsx08wbS71f1d115oh+W8ZLBHZS5CWM7qx40sWQwKr0T+sxttdPX4mt+rIiyB9KnbS8HamtUW89RHccW4SQ+5gevCQHBqbRK+/LPjon1UTlhBzqTtXD34TAMrJIleZwD3bhcMtdsG2HQ8yIqq0rgBhqPZn/N2MDst2QQxzLFi2alcI67ZQdNGrEeBJ4mcRV7jUAp4wyGvG/yY=
+    on:
+      repo: Guseyn/cutie-web-socket
+      branch:
+        - master
+      condition: $TRAVIS_COMMIT_MESSAGE =~ ^([0-9]{1,3}).([0-9]{1,3}).([0-9]{1,3})$
