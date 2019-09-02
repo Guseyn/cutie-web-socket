@@ -7,10 +7,12 @@ class WebSocketWithMessageEvent extends AsyncObject {
     super(ws, event)
   }
 
-  // event is an Event with body(data)
+  // event is an Event with body(ws, data)
   syncCall () {
     return (ws, event) => {
-      ws.on('message', event)
+      ws.on('message', (data) => {
+        event(ws, data)
+      })
       return ws
     }
   }

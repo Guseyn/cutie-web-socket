@@ -7,10 +7,12 @@ class WebSocketWithPingEvent extends AsyncObject {
     super(ws, event)
   }
 
-  // event is an Event with body(data)
+  // event is an Event with body(ws, data)
   syncCall () {
     return (ws, event) => {
-      ws.on('ping', event)
+      ws.on('ping', (data) => {
+        event(ws, data)
+      })
       return ws
     }
   }

@@ -3,13 +3,13 @@
 const { AsyncObject } = require('@cuties/cutie')
 
 class AddressOfWebSocketServer extends AsyncObject {
-  constructor (server) {
-    super(server)
+  constructor (wss) {
+    super(wss)
   }
 
   syncCall () {
-    return (server) => {
-      return server.address()
+    return (wss) => {
+      return wss.address()
     }
   }
 }

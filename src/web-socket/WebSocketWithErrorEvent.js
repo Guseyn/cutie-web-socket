@@ -7,10 +7,12 @@ class WebSocketWithErrorEvent extends AsyncObject {
     super(ws, event)
   }
 
-  // event is an Event with body(error)
+  // event is an Event with body(ws, error)
   syncCall () {
     return (ws, event) => {
-      ws.on('error', event)
+      ws.on('error', (error) => {
+        event(ws, error)
+      })
       return ws
     }
   }

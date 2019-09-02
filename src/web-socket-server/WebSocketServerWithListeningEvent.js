@@ -3,15 +3,17 @@
 const { AsyncObject } = require('@cuties/cutie')
 
 class WebSocketServerWithListeningEvent extends AsyncObject {
-  constructor (server, event) {
-    super(server, event)
+  constructor (wss, event) {
+    super(wss, event)
   }
 
-  // event is an Event with body()
+  // event is an Event with body(server)
   syncCall () {
-    return (server, event) => {
-      server.on('listening', event)
-      return server
+    return (wss, event) => {
+      wss.on('listening', () => {
+        event(wss)
+      })
+      return wss
     }
   }
 }

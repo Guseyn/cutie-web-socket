@@ -7,10 +7,12 @@ class WebSocketWithPongEvent extends AsyncObject {
     super(ws, event)
   }
 
-  // event is an Event with body(data)
+  // event is an Event with body(ws, data)
   syncCall () {
     return (ws, event) => {
-      ws.on('pong', event)
+      ws.on('pong', (data) => {
+        event(ws, data)
+      })
       return ws
     }
   }

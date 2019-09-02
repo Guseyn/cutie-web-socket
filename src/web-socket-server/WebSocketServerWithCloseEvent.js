@@ -3,15 +3,17 @@
 const { AsyncObject } = require('@cuties/cutie')
 
 class WebSocketServerWithCloseEvent extends AsyncObject {
-  constructor (server, event) {
-    super(server, event)
+  constructor (wss, event) {
+    super(wss, event)
   }
 
-  // event is an Event with body()
+  // event is an Event with body(wss)
   syncCall () {
-    return (server, event) => {
-      server.on('close', event)
-      return server
+    return (wss, event) => {
+      wss.on('close', () => {
+        event(wss)
+      })
+      return wss
     }
   }
 }

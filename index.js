@@ -32,7 +32,6 @@ module.exports = {
   AddressOfWebSocketServer: require('./src/web-socket-server/AddressOfWebSocketServer'),
   ClientsOfWebSocketServer: require('./src/web-socket-server/ClientsOfWebSocketServer'),
   ClosedWebSocketServer: require('./src/web-socket-server/ClosedWebSocketServer'),
-  ConnectedWebSocket: require('./src/web-socket-server/ConnectedWebSocket'),
   CreatedWebSocketServer: require('./src/web-socket-server/CreatedWebSocketServer'),
   ShouldRequestBeHandled: require('./src/web-socket-server/ShouldRequestBeHandled'),
   WebSocketOfHandledUpgrade: require('./src/web-socket-server/WebSocketOfHandledUpgrade'),

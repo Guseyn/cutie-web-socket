@@ -3,15 +3,17 @@
 const { AsyncObject } = require('@cuties/cutie')
 
 class WebSocketServerWithErrorEvent extends AsyncObject {
-  constructor (server, event) {
-    super(server, event)
+  constructor (wss, event) {
+    super(wss, event)
   }
 
-  // event is an Event with body(error)
+  // event is an Event with body(wss, error)
   syncCall () {
-    return (server, event) => {
-      server.on('error', event)
-      return server
+    return (wss, event) => {
+      wss.on('error', (error) => {
+        event(wss, error)
+      })
+      return wss
     }
   }
 }
