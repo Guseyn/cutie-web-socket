@@ -7,10 +7,12 @@ class WebSocketWithUnexpectedResponseEvent extends AsyncObject {
     super(ws, event)
   }
 
-  // event is an Event with body(request, response)
+  // event is an Event with body(ws, request, response)
   syncCall () {
     return (ws, event) => {
-      ws.on('unexpected-response', event)
+      ws.on('unexpected-response', (request, response) => {
+        event(ws, request, response)
+      })
       return ws
     }
   }

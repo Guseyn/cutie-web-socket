@@ -9,7 +9,9 @@ class WebSocketWithRemovedListener extends AsyncObject {
 
   syncCall () {
     return (ws, type, listener) => {
-      ws.removeEventListener(type, listener)
+      ws.removeEventListener(type, (...args) => {
+        listener(ws, ...args)
+      })
       return ws
     }
   }

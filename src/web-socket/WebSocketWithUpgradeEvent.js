@@ -7,10 +7,12 @@ class WebSocketWithUpgradeEvent extends AsyncObject {
     super(ws, event)
   }
 
-  // event is an Event with body(response)
+  // event is an Event with body(ws, response)
   syncCall () {
     return (ws, event) => {
-      ws.on('upgrade', event)
+      ws.on('upgrade', (response) => {
+        event(ws, response)
+      })
       return ws
     }
   }

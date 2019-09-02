@@ -7,10 +7,12 @@ class WebSocketWithOpenEvent extends AsyncObject {
     super(ws, event)
   }
 
-  // event is an Event with body()
+  // event is an Event with body(ws)
   syncCall () {
     return (ws, event) => {
-      ws.on('open', event)
+      ws.on('open', () => {
+        event(ws)
+      })
       return ws
     }
   }

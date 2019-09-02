@@ -3,13 +3,13 @@
 const { AsyncObject } = require('@cuties/cutie')
 
 class ShouldRequestBeHandled extends AsyncObject {
-  constructor (server, request) {
-    super(server, request)
+  constructor (wss, request) {
+    super(wss, request)
   }
 
   asyncCall () {
-    return (server, request) => {
-      return server.shouldHandle(request)
+    return (wss, request) => {
+      return wss.shouldHandle(request)
     }
   }
 }

@@ -9,7 +9,9 @@ class WebSocketWithListener extends AsyncObject {
 
   syncCall () {
     return (ws, type, listener) => {
-      ws.addEventListener(type, listener)
+      ws.addEventListener(type, (...args) => {
+        listener(ws, ...args)
+      })
       return ws
     }
   }

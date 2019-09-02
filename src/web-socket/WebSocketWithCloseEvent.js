@@ -7,10 +7,12 @@ class WebSocketWithCloseEvent extends AsyncObject {
     super(ws, event)
   }
 
-  // event is an Event with body(code, reason)
+  // event is an Event with body(ws, code, reason)
   syncCall () {
     return (ws, event) => {
-      ws.on('close', event)
+      ws.on('close', (code, reason) => {
+        event(ws, code, reason)
+      })
       return ws
     }
   }
