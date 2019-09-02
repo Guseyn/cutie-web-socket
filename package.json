@@ -1,0 +1,49 @@
+{
+  "name": "@cuties/ws",
+  "version": "1.0.0",
+  "description": "Cutie extension for web sockets.",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test",
+    "build": "node build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Guseyn/cutie-web-socket.git"
+  },
+  "keywords": [
+    "cutie",
+    "async",
+    "tree",
+    "web",
+    "sockets",
+    "ws"
+  ],
+  "author": "guseyn",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Guseyn/cutie-web-socket/issues"
+  },
+  "homepage": "https://github.com/Guseyn/cutie-web-socket#readme",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@cuties/assert": "^1.2.2",
+    "@cuties/cutie": "^1.7.5",
+    "@cuties/fs": "^1.2.4",
+    "@cuties/is": "^1.1.2",
+    "@cuties/json": "^1.1.1",
+    "@cuties/object": "^1.1.5",
+    "@cuties/wall": "^1.1.2",
+    "test-executor": "^1.2.4"
+  },
+  "devDependencies": {
+    "eslint": "^5.14.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-node": "^8.0.1",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-standard": "^4.0.0"
+  }
+}
