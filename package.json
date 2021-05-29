@@ -40,7 +40,7 @@
     "@cuties/object": "^1.1.5",
     "@cuties/wall": "^1.1.2",
     "test-executor": "^1.2.4",
-    "ws": "^7.1.2"
+    "ws": "^7.4.6"
   },
   "devDependencies": {
     "eslint": "^5.14.0",
